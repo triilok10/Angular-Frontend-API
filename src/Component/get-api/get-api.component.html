@@ -1,11 +1,11 @@
-<table id="data-table" class="table table-striped">
+<table *ngIf="!isEditMode" id="data-table" class="table table-striped">
     <thead>
         <tr>
-              <th>Book Name</th>
+            <th>Book Name</th>
             <th>Author Name</th>
             <th>Medium</th>
             <th>Published Year</th>
-            <th>Actions</th>
+            <th class="action-buttons">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -15,9 +15,39 @@
             <td>{{ book.bookMedium }}</td>
             <td>{{ book.bookPublishedYear }}</td>
             <td class="action-buttons">
-                <button class="btn btn-primary btn-sm">Edit</button>
+                <button class="btn btn-primary btn-sm" (click)="EditBookGet(book)">Edit</button>
                 <button class="btn btn-danger btn-sm" (click)="deleteBook(book.bookID)">Delete</button>
             </td>
         </tr>
     </tbody>
 </table>
+
+<div *ngIf="isEditMode" class="form-container">
+    <h3>Update Book Data</h3>
+    <form (submit)="EditBook(url, bookObj)" id="bookForm">
+        <div class="mb-3">
+            <label for="bookName" class="form-label">Book Name</label>
+            <input type="text" [(ngModel)]="bookObj.bookName" class="form-control" id="bookName"
+                placeholder="Enter Book Name" name="bookName">
+        </div>
+        <div class="mb-3">
+            <label for="authorName" class="form-label">Author Name</label>
+            <input type="text" [(ngModel)]="bookObj.bookAuthorName" class="form-control" id="authorName"
+                placeholder="Enter Author Name" name="bookAuthorName">
+        </div>
+        <div class="mb-3">
+            <label for="medium" class="form-label">Medium</label>
+            <input type="text" [(ngModel)]="bookObj.bookMedium" class="form-control" id="medium"
+                placeholder="Enter Medium (e.g., English)" name="bookMedium">
+        </div>
+        <div class="mb-3">
+            <label for="publishedYear" class="form-label">Published Year</label>
+            <input type="text" [(ngModel)]="bookObj.bookPublishedYear" class="form-control" id="publishedYear"
+                placeholder="Enter Published Year" name="bookPublishedYear">
+        </div>
+        <div class="form-buttons">
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Back</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
