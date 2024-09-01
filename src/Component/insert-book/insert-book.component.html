@@ -1,0 +1,35 @@
+<div class="form-container">
+    <h3>Insert Book Data</h3>
+    <form (submit)="SubmitBook(url, bookObj)" id="bookForm">
+        <div class="mb-3">
+            <label for="bookName" class="form-label">Book Name</label>
+            <input type="text" [(ngModel)]="bookObj.bookName" class="form-control" id="bookName"
+                placeholder="Enter Book Name" name="bookName">
+        </div>
+        <div class="mb-3">
+            <label for="authorName" class="form-label">Author Name</label>
+            <input type="text" [(ngModel)]="bookObj.bookAuthorName" class="form-control" id="authorName"
+                placeholder="Enter Author Name" name="bookAuthorName">
+        </div>
+        <div class="mb-3">
+            <label for="medium" class="form-label">Medium</label>
+            <input type="text" [(ngModel)]="bookObj.bookMedium" class="form-control" id="medium"
+                placeholder="Enter Medium (e.g., English)" name="bookMedium">
+        </div>
+        <div class="mb-3">
+            <label for="publishedYear" class="form-label">Published Year</label>
+            <input type="text" [(ngModel)]="bookObj.bookPublishedYear" class="form-control" id="publishedYear"
+                placeholder="Enter Published Year" name="bookPublishedYear">
+        </div>
+        <div class="form-buttons">
+            <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function resetForm() {
+        document.getElementById('bookForm').reset();
+    }
+</script>
