@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BookServiceService } from '../../Service/book-service.service';
 
 @Component({
   selector: 'app-get-api',
   standalone: true,
   imports: [CommonModule, HttpClientModule, FormsModule],
   templateUrl: './get-api.component.html',
-  styleUrl: './get-api.component.css'
+  styleUrls: ['./get-api.component.css']
 })
 export class GetAPIComponent {
 
@@ -23,7 +24,7 @@ export class GetAPIComponent {
 
   isEditMode: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private bookService: BookServiceService) { }
 
   ngOnInit(): void {
     this.fetchBook();
@@ -44,8 +45,8 @@ export class GetAPIComponent {
       if (response.res === true) {
         alert(response.msg);
         this.resetForm();
-        this.isEditMode = false;  
-        this.fetchBook();        
+        this.isEditMode = false;
+        this.fetchBook();
       } else {
         alert('Error in updating the Data');
       }
@@ -55,11 +56,18 @@ export class GetAPIComponent {
     });
   }
 
-  fetchBook() {
-    this.http.get(this.url).subscribe((response: any) => {
-      console.log(response.getList);
+  // fetchBook() {
+  //   this.http.get(this.url).subscribe((response: any) => {
+  //     console.log(response.getList);
+  //     this.BookList = response.getList;
+  //   });
+  // }
+
+
+  fetchBook(){
+    this.bookService.getAllDept().subscribe((response:any)=>{
       this.BookList = response.getList;
-    });
+    })
   }
 
   deleteBook(bookID: number) {
@@ -74,11 +82,11 @@ export class GetAPIComponent {
   }
 
   EditBookGet(data: any) {
-    this.bookObj = { ...data }; 
-    this.isEditMode = true;    
+    this.bookObj = { ...data };
+    this.isEditMode = true;
   }
 
   cancelEdit() {
-    this.isEditMode = false;  
+    this.isEditMode = false;
   }
 }
