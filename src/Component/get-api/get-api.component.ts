@@ -8,6 +8,7 @@ import { BookServiceService } from '../../Service/book-service.service';
   selector: 'app-get-api',
   standalone: true,
   imports: [CommonModule, HttpClientModule, FormsModule],
+  providers: [BookServiceService], 
   templateUrl: './get-api.component.html',
   styleUrls: ['./get-api.component.css']
 })
@@ -24,7 +25,7 @@ export class GetAPIComponent {
 
   isEditMode: boolean = false;
 
-  constructor(private http: HttpClient, private bookService: BookServiceService) { }
+  constructor(private http: HttpClient, private bookService:BookServiceService) { }
 
   ngOnInit(): void {
     this.fetchBook();
